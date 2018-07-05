@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <title>reCAPTCHA demo: Simple page</title>
+
+    <script src="https://www.google.com/recaptcha/api.js?render=RECAPTCHA_SITE_KEY"></script>
+    <script>
+      grecaptcha.ready(function() {
+        function onSubmit() {
+          grecaptcha.execute("RECAPTCHA_SITE_KEY", {action: "demo"}).then(function(token) {
+            document.getElementById("demo-form")["token"].value = token
+            document.getElementById("demo-form").submit()
+          });
+        }
+        window.onSubmit = onSubmit
+      })
+    </script>
+  </head>
+  <body>
+    <form id="demo-form" action="/check" method="POST">
+      <input name="token" type="hidden"/>
+    </form>
+    <button id="submit" onclick="window.onSubmit()">Submit</button>
+  </body>
+</html>
